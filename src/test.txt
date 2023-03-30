@@ -1,0 +1,61 @@
+struct A<T> {
+    a::T
+}
+
+struct B<T> {
+    a::fun(A<T>) -> T
+}
+
+struct Ptr<T> {
+    ptr::int,
+    // TODO: étiquetts
+    data::T // #hallow
+}
+
+enum C {
+    a, b
+}
+
+// template
+fun f(b::B<int>) -> fun(A<int>) -> int {
+    // typeof b;
+    return b.a;
+}
+
+fun fb(b::Ptr<int>) -> int {
+    return b.ptr;
+}
+
+// fb(Ptr::<str>(2)); // TODO: should not typecheck with hallow probably
+
+fun add<T>(x::T, y::T) -> T {
+    return x + y;
+}
+
+fun add<T, A>(x::T, y::A) -> float {
+    return 3.1;
+}
+
+fun add<T>(x::T, y::bool) -> str {
+    return "";
+}
+
+fun add<T>(x::A<T>, y::A<T>) -> T {
+    return x.a + y.a;
+}
+
+fun add(x::str) -> bool {
+    return true;
+}
+
+fun add(x::int, y::bool) -> int {
+    return x;
+}
+
+add("");
+add(3, true);
+add::<int, int>(3, 3);
+add::<str>("3", "4");
+add::<int>(3, 4);
+add::<str>(A::<str>(""), A::<str>(""));
+typeof add::<bool>(true, false);

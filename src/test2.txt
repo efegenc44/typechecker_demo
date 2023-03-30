@@ -1,0 +1,14 @@
+struct A<T> {
+    a::T
+}
+
+fun add<T>(x::T, y::T) -> T {
+    return x + y;
+} 
+
+fun a() -> fun(int, int) -> int {
+    return add::<int>;
+    // FIXME: this returns type::genericoverload not functype
+}
+
+typeof a()(3, 4);
